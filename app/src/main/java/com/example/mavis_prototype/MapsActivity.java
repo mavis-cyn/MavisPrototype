@@ -118,6 +118,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
+
         // Add a marker in NUS and move the camera to a specific zoom level to show NUS campus
         mNUS = mMap.addMarker(new MarkerOptions()
                 .position(NUS)
@@ -129,22 +131,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //add NUS markers to map and set a tag by category for each marker.
         mDeck = mMap.addMarker(new MarkerOptions()
                 .position(DECK)
-                .title("Deck"));
+                .title("Deck")
+                .snippet("FASS canteen"));
         mDeck.setTag("Food and Beverages");
 
         mFrontier = mMap.addMarker(new MarkerOptions()
                 .position(SCIENCE_FRONTIER)
-                .title("Science Frontier"));
+                .title("Science Frontier")
+                .snippet("Science Canteen"));
         mFrontier.setTag("Food and Beverages");
 
         mPlatypus = mMap.addMarker(new MarkerOptions()
                 .position(PLATYPUS_FOODBAR)
-                .title("Platypus Foodbar"));
+                .title("Platypus Foodbar")
+                .snippet("Add snippet for platypus"));
         mPlatypus.setTag("Food and Beverages");
 
         mCentralLib = mMap.addMarker(new MarkerOptions()
                 .position(CENTRAL_LIBRARY)
-                .title("Central Library"));
+                .title("Central Library")
+                .snippet("how many floors etc"));
         mCentralLib.setTag("Study Spots");
 
         //Adding marker to array list
