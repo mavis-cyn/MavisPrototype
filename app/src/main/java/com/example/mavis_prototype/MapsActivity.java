@@ -144,8 +144,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
+        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
 
         // Add a marker in NUS and move the camera to a specific zoom level to show NUS campus
         mNUS = mMap.addMarker(new MarkerOptions()
@@ -161,11 +160,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .position(DECK)
                 .title("Deck")
                 .snippet("FASS canteen"));
+        InfoWindowData info_deck = new InfoWindowData();
+        info_deck.setImage("deck");
+        info_deck.setOpeningHours("Opening hours: 9am - 6pm");
+        info_deck.setBusStops("Bus Stops: AS5");
+        CustomInfoWindowAdapter customInfoWindow = new CustomInfoWindowAdapter(this);
+        mMap.setInfoWindowAdapter(customInfoWindow);
+        mDeck.setTag(info_deck);
+        mDeck.showInfoWindow();
 
         mFrontier = mMap.addMarker(new MarkerOptions()
                 .position(SCIENCE_FRONTIER)
                 .title("Science Frontier")
                 .snippet("Science Canteen"));
+        InfoWindowData info_frontier = new InfoWindowData();
+        info_frontier.setImage("frontier");
+        info_frontier.setOpeningHours("Opening hours: add opening hours");
+        info_frontier.setBusStops("Bus Stops: LT27");
+        mFrontier.setTag(info_frontier);
+        mFrontier.showInfoWindow();
 
         mPlatypus = mMap.addMarker(new MarkerOptions()
                 .position(PLATYPUS_FOODBAR)
