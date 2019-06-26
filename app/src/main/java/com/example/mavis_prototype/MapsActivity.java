@@ -68,15 +68,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // An item was selected. You can retrieve the selected item using
         String selectedCategory = parent.getItemAtPosition(pos).toString();
 
-        for (Marker m : markersList) {
-            if (m.getTag().equals(selectedCategory)) {
+        //when a category is selected, make the markers in the category visible and the markers in other categories invisible.
+        if (selectedCategory.equals("Food and Beverages")){
+            for (Marker m : food_and_beverage_list){
                 m.setVisible(true);
             }
-            else {
+            for (Marker m : study_spots_list){
+                m.setVisible(false);
+            }
+            for (Marker m : bus_stops_list){
                 m.setVisible(false);
             }
         }
-
+        else if (selectedCategory.equals("Study Spots")){
+            for (Marker m : study_spots_list){
+                m.setVisible(true);
+            }
+            for (Marker m : food_and_beverage_list){
+                m.setVisible(false);
+            }
+            for (Marker m : bus_stops_list){
+                m.setVisible(false);
+            }
+        }
+        else if (selectedCategory.equals("Bus Stops")){
+            for (Marker m : bus_stops_list){
+                m.setVisible(true);
+            }
+            for (Marker m : food_and_beverage_list){
+                m.setVisible(false);
+            }
+            for (Marker m : study_spots_list){
+                m.setVisible(false);
+            }
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -111,8 +136,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Marker mPlatypus;
     private Marker mCentralLib;
 
-    //Initialise marker array list
-    List<Marker> markersList = new ArrayList<>();
+    //Initialise marker array list to store markers of each category
+    List<Marker> food_and_beverage_list = new ArrayList<>();
+    List<Marker> study_spots_list = new ArrayList<>();
+    List<Marker> bus_stops_list = new ArrayList<>();
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -128,39 +155,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Set NUS marker to invisible
         mNUS.setVisible(false);
 
-        //add NUS markers to map and set a tag by category for each marker.
+        //add NUS markers to map
+        //Food and Beverages cateogory
         mDeck = mMap.addMarker(new MarkerOptions()
                 .position(DECK)
                 .title("Deck")
                 .snippet("FASS canteen"));
-        mDeck.setTag("Food and Beverages");
 
         mFrontier = mMap.addMarker(new MarkerOptions()
                 .position(SCIENCE_FRONTIER)
                 .title("Science Frontier")
                 .snippet("Science Canteen"));
-        mFrontier.setTag("Food and Beverages");
 
         mPlatypus = mMap.addMarker(new MarkerOptions()
                 .position(PLATYPUS_FOODBAR)
                 .title("Platypus Foodbar")
                 .snippet("Add snippet for platypus"));
-        mPlatypus.setTag("Food and Beverages");
 
+        //Study Spots category
         mCentralLib = mMap.addMarker(new MarkerOptions()
                 .position(CENTRAL_LIBRARY)
                 .title("Central Library")
                 .snippet("how many floors etc"));
-        mCentralLib.setTag("Study Spots");
 
-        //Adding marker to array list
-        markersList.add(mDeck);
-        markersList.add(mFrontier);
-        markersList.add(mPlatypus);
-        markersList.add(mCentralLib);
+        //Adding marker to array list according to category
+        food_and_beverage_list.add(mDeck);
+        food_and_beverage_list.add(mFrontier);
+        food_and_beverage_list.add(mPlatypus);
+        study_spots_list.add(mCentralLib);
 
         //set markers in the list to be invisible until a category is chosen
-        for (Marker m : markersList) {
+        for (Marker m : food_and_beverage_list) {
+            m.setVisible(false);
+        }
+        for (Marker m : study_spots_list) {
+            m.setVisible(false);
+        }
+        for (Marker m : food_and_beverage_list) {
             m.setVisible(false);
         }
     }
