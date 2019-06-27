@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -104,13 +105,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         else {
             for (Marker m : food_and_beverage_list){
-                m.setVisible(false);
+                m.setVisible(true);
             }
             for (Marker m : study_spots_list){
-                m.setVisible(false);
+                m.setVisible(true);
             }
             for (Marker m : bus_stops_list){
-                m.setVisible(false);
+                m.setVisible(true);
             }
         }
     }
@@ -177,6 +178,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Food and Beverages category
         mDeck = mMap.addMarker(new MarkerOptions()
                 .position(DECK)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .title("Deck")
                 .snippet("FASS canteen"));
         InfoWindowData info_deck = new InfoWindowData();
@@ -190,6 +192,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mFrontier = mMap.addMarker(new MarkerOptions()
                 .position(SCIENCE_FRONTIER)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .title("Science Frontier")
                 .snippet("Science Canteen"));
         InfoWindowData info_frontier = new InfoWindowData();
@@ -203,6 +206,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mPlatypus = mMap.addMarker(new MarkerOptions()
                 .position(PLATYPUS_FOODBAR)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .title("Platypus Foodbar")
                 .snippet("Add snippet for platypus"));
         InfoWindowData info_platypus = new InfoWindowData();
@@ -217,6 +221,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Study Spots category
         mCentralLib = mMap.addMarker(new MarkerOptions()
                 .position(CENTRAL_LIBRARY)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
                 .title("Central Library")
                 .snippet("how many floors etc"));
         InfoWindowData info_central_lib = new InfoWindowData();
@@ -230,6 +235,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mYaleLib = mMap.addMarker(new MarkerOptions()
                 .position(YALE_NUS_LIBRARY)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
                 .title("Yale-NUS Library")
                 .snippet("Library in Yale NUS"));
         InfoWindowData info_yale_lib = new InfoWindowData();
@@ -243,6 +249,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mERC = mMap.addMarker(new MarkerOptions()
                 .position(EDUCATION_RESOURCE_CENTRE)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
                 .title("Education Resource Centre")
                 .snippet("Holds 3 computer commons: Collaborative Commons, Mac Commons and PC Commons"));
         InfoWindowData info_erc = new InfoWindowData();
