@@ -21,12 +21,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
 
     private GoogleMap mMap;
+
+    //restricting camera view within NUS
+    private static final LatLngBounds NUSBound = new LatLngBounds(new LatLng(1.285312, 103.766594), new LatLng(1.306341, 103.785059));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +118,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 m.setVisible(true);
             }
         }
+
+        // Constrain the camera target to the NUS bounds.
+        mMap.setLatLngBoundsForCameraTarget(NUSBound);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
