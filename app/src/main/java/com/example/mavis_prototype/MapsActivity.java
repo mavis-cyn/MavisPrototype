@@ -137,6 +137,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      * installed Google Play services and returned to the app.
      */
 
+    //Location permission
+    private boolean mLocationPermissionGranted = false;
+
     //NUS marker - for app to open and zoom into NUS campus
     private static final LatLng NUS = new LatLng(1.296739, 103.776372);
 
