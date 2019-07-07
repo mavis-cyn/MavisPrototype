@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "563679883602",
+    "firebase_url": "https://nuskia-173ba.firebaseio.com",
+    "project_id": "nuskia-173ba",
+    "storage_bucket": "nuskia-173ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563679883602:android:933da908ea42a24c",
+        "android_client_info": {
+          "package_name": "com.example.mavis_prototype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563679883602-m7162eo1kc27s42pbkghstar8lsqbg4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mavis_prototype",
+            "certificate_hash": "fc858145fafe5a7952a09e1becee900a011da769"
+          }
+        },
+        {
+          "client_id": "563679883602-mhgveatls4enr63cqe4mpnaslbfmls4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvpfVjH24PRUg6a85QfG6jOa1nsraaX30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563679883602-mhgveatls4enr63cqe4mpnaslbfmls4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
