@@ -8,11 +8,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -303,13 +305,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public boolean onMarkerClick(Marker marker) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
 
+                        View view = LayoutInflater.from(MapsActivity.this).inflate(R.layout.custom_alert_dialog, null);
+                        TextView alert_title = (TextView) view.findViewById(R.id.alert_title);
+                        ImageView description_image = (ImageView) view.findViewById(R.id.description_image);
+                        TextView description_title = (TextView) view.findViewById(R.id.description_title);
+                        TextView description_text = (TextView) view.findViewById(R.id.description_text);
+                        ImageView category_image = (ImageView) view.findViewById(R.id.category_image);
+                        TextView category_title = (TextView) view.findViewById(R.id.category_title);
+                        TextView category_text = (TextView) view.findViewById(R.id.category_text);
+                        ImageView opening_hours_image = (ImageView) view.findViewById(R.id.opening_image);
+                        TextView opening_hours_title = (TextView) view.findViewById(R.id.opening_hours_title);
+                        TextView opening_hours_text = (TextView) view.findViewById(R.id.opening_text);
+                        ImageView bus_stop_image = (ImageView) view.findViewById(R.id.bus_image);
+                        TextView bus_stop_title = (TextView) view.findViewById(R.id.bus_stop_title);
+                        TextView bus_stop_text = (TextView) view.findViewById(R.id.bus_text);
+
                         //searching marker ID in locationDetailsList to get info of a specific marker
                         for (int i = 0; i < locationDetailsList.size(); i++) {
                             LocationDetails l = locationDetailsList.get(i);
                             if (marker.getId().equals(l.getMarkerID())) {
-                                builder.setTitle(l.getName());
 
-                                builder.setMessage("Description: " + l.getDescription() + "\n" + "\n" + "Category: " + l.getCategory() + "\n" + "Opening Hours: " + l.getOpeningHours() + "\n" + "Bus Stop: " + l.getBusStop());
+                                alert_title.setText(l.getName());
+                                description_image.setImageResource(R.drawable.icon_description);
+                                description_title.setText("Description: ");
+                                description_text.setText(l.getDescription());
+                                category_image.setImageResource(R.drawable.icon_category);
+                                category_title.setText("Category: ");
+                                category_text.setText(l.getCategory());
+                                opening_hours_image.setImageResource(R.drawable.icon_opening_hours);
+                                opening_hours_title.setText("Opening Hours: ");
+                                opening_hours_text.setText(l.getOpeningHours());
+                                bus_stop_image.setImageResource(R.drawable.icon_bus_stop);
+                                bus_stop_title.setText("Bus Stop: ");
+                                bus_stop_text.setText(l.getBusStop());
+
+                                //builder.setTitle(l.getName());
+
+                                //builder.setMessage("Description: " + l.getDescription() + "\n" + "\n" + "Category: " + l.getCategory() + "\n" + "Opening Hours: " + l.getOpeningHours() + "\n" + "Bus Stop: " + l.getBusStop());
                             }
                         }
 
@@ -317,8 +349,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         builder.setPositiveButton("Ok", null);
 
                         //Create and show the AlertDialog
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        //AlertDialog dialog = builder.create();
+                        //dialog.show();
+                        builder.setView(view);
+                        builder.show();
 
                         return false;
                     }
