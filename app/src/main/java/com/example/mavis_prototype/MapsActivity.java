@@ -373,6 +373,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Set NUS marker to invisible
         mNUS.setVisible(false);
 
+        /*
         //set markers in the list to be invisible until a category is chosen
         for (Marker m : food_and_beverage_list) {
             m.setVisible(false);
@@ -383,6 +384,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (Marker m : food_and_beverage_list) {
             m.setVisible(false);
         }
+        */
 
         locationListener = new LocationListener() {
             @Override
