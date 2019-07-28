@@ -17,7 +17,8 @@
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/categories_array"/>
 
     <fragment xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"

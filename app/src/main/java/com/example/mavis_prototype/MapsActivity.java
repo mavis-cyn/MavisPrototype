@@ -2,6 +2,7 @@ package com.example.mavis_prototype;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,8 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -54,10 +58,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //restricting camera view within NUS
     private static final LatLngBounds NUSBound = new LatLngBounds(new LatLng(1.285312, 103.766594), new LatLng(1.306341, 103.785059));
 
+    //TextView textView1;
+
+    String[] spinnerCategories = {"Select Category", "Food and Beverages", "Study Spots", "Bus Stops"};
+    int[] spinnerImages = {R.drawable.icon_select_category, R.drawable.icon_food_and_beverages, R.drawable.icon_study_spots, R.drawable.icon_bus_stops};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        /*
+        textView1 = (TextView) findViewById(R.id.textView1);
+        findViewById(R.id.button_form).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //send Feedback form method
+                sendSuggestion(v);
+            }
+        });
+        */
 
         //
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -75,13 +95,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /*
+    public void sendSuggestion(View button) {
+        //Do click handling here
+        Intent intent = new Intent(this, SuggestionFormActivity.class);
+        startActivityForResult(intent, 2); //SuggestionForm activity is started with requestCode 2
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==2)
+        {
+            String message=data.getStringExtra("MESSAGE");
+            textView1.setText(message);
+        }
+    }
+    */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.spinner_menu, menu);
 
+
         //Spinner element
         MenuItem item = menu.findItem(R.id.spinner);
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+
+/*
+        /////////Form element
+        //MenuItem button = menu.findItem(R.id.button_form);
 
         //Spinner click listener
         spinner.setOnItemSelectedListener(this);
@@ -93,59 +137,85 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Attaching data adapter to spinner
         spinner.setAdapter(adapter);
+        */
+
+        CustomAdapter mCustomAdapter = new CustomAdapter(MapsActivity.this, spinnerCategories, spinnerImages);
+        spinner.setOnItemSelectedListener(MapsActivity.this);
+        spinner.setAdapter(mCustomAdapter);
+
         return true;
     }
 
+    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.form:
+                // Form item was selected
+                return true;
+                //may need to include spinner item case
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    */
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        String selectedCategory = parent.getItemAtPosition(pos).toString();
 
-        //when a category is selected, make the markers in the category visible and the markers in other categories invisible.
-        if (selectedCategory.equals("Food and Beverages")){
-            for (Marker m : food_and_beverage_list){
-                m.setVisible(true);
+        if (parent.getCount() > 0) {
+            // An item was selected. You can retrieve the selected item using
+            //String selectedCategory = parent.getItemAtPosition(pos).toString();
+            String selectedCategory = spinnerCategories[pos];
+
+            //when a category is selected, make the markers in the category visible and the markers in other categories invisible.
+            if (selectedCategory.equals("Food and Beverages")){
+                for (Marker m : food_and_beverage_list){
+                    m.setVisible(true);
+                }
+                for (Marker m : study_spots_list){
+                    m.setVisible(false);
+                }
+                for (Marker m : bus_stops_list){
+                    m.setVisible(false);
+                }
             }
-            for (Marker m : study_spots_list){
-                m.setVisible(false);
+            else if (selectedCategory.equals("Study Spots")){
+                for (Marker m : study_spots_list){
+                    m.setVisible(true);
+                }
+                for (Marker m : food_and_beverage_list){
+                    m.setVisible(false);
+                }
+                for (Marker m : bus_stops_list){
+                    m.setVisible(false);
+                }
             }
-            for (Marker m : bus_stops_list){
-                m.setVisible(false);
+            else if (selectedCategory.equals("Bus Stops")){
+                for (Marker m : bus_stops_list){
+                    m.setVisible(true);
+                }
+                for (Marker m : food_and_beverage_list){
+                    m.setVisible(false);
+                }
+                for (Marker m : study_spots_list){
+                    m.setVisible(false);
+                }
+            }
+            else {
+                for (Marker m : food_and_beverage_list){
+                    m.setVisible(true);
+                }
+                for (Marker m : study_spots_list){
+                    m.setVisible(true);
+                }
+                for (Marker m : bus_stops_list){
+                    m.setVisible(true);
+                }
             }
         }
-        else if (selectedCategory.equals("Study Spots")){
-            for (Marker m : study_spots_list){
-                m.setVisible(true);
-            }
-            for (Marker m : food_and_beverage_list){
-                m.setVisible(false);
-            }
-            for (Marker m : bus_stops_list){
-                m.setVisible(false);
-            }
-        }
-        else if (selectedCategory.equals("Bus Stops")){
-            for (Marker m : bus_stops_list){
-                m.setVisible(true);
-            }
-            for (Marker m : food_and_beverage_list){
-                m.setVisible(false);
-            }
-            for (Marker m : study_spots_list){
-                m.setVisible(false);
-            }
-        }
-        else {
-            for (Marker m : food_and_beverage_list){
-                m.setVisible(true);
-            }
-            for (Marker m : study_spots_list){
-                m.setVisible(true);
-            }
-            for (Marker m : bus_stops_list){
-                m.setVisible(true);
-            }
-        }
+
 
         // Constrain the camera target to the NUS bounds.
         //mMap.setLatLngBoundsForCameraTarget(NUSBound);
@@ -154,6 +224,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+
 
     /**
      * Manipulates the map once available.
