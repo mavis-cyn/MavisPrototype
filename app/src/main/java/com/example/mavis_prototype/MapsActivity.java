@@ -1,8 +1,6 @@
 package com.example.mavis_prototype;
 
 import android.Manifest;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,14 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -43,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
@@ -389,7 +383,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onLocationChanged(Location location) {
                 try {
                     latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("My position"));
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("My position").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_black_silhouette)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
                 catch (SecurityException e) {
